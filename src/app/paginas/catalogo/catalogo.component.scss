@@ -1,18 +1,58 @@
 .productos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(4, 1fr); // ✅ 4 columnas fijas
   gap: 1rem;
   padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .producto-card {
-  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .producto-imagen {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 10px;
+   display: block;         /* Para poder centrar con margin auto */
+  margin: 0 auto;         /* Centra horizontalmente */
+  max-width: 100%;        /* No excede el ancho del contenedor */
+  height: auto;           /* Altura automática para mantener proporción */
+  border-radius: 8px;
+  object-fit: contain;    /* Ajusta la imagen dentro del espacio sin cortar */
+  max-height: 200px;      /* Máximo alto para uniformidad */
 }
+
+
+
+::ng-deep .p-paginator {
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+
+@media (max-width: 1024px) {
+  .productos-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .productos-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .producto-imagen {
+    max-height: 150px;
+  }
+}
+
+/* Esto centra el botón dentro de su contenedor padre */
+button[pButton] {
+  display: block;
+  margin: 1rem auto 0 auto; /* margen arriba 1rem, y auto a los lados para centrar */
+}
+
 

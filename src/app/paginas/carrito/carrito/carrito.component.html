@@ -6,13 +6,31 @@
   <p>Tu carrito está vacío.</p>
 </div>
 
-<div *ngFor="let producto of productos" class="producto" style="margin-bottom:1rem;">
-  <p-card [header]="producto.titulo" [subheader]="'Cantidad: ' + (producto.cantidad || 1)">
-    <img *ngIf="producto.imagen" [src]="producto.imagen" alt="Imagen" class="producto-img" style="width:100%; max-height: 200px; object-fit: contain;" />
-    <p *ngIf="producto.descripcion">{{ producto.descripcion }}</p>
-    <p><strong>Precio: </strong>${{ producto.precio }}</p>
-    <button pButton type="button" icon="pi pi-trash" label="Eliminar" (click)="eliminar(producto.id)" class="p-button-danger"></button>
-  </p-card>
+<div class="carrito-grid" *ngIf="productos.length > 0">
+  <div *ngFor="let producto of productos" class="producto">
+    <p-card
+      [header]="producto.titulo"
+      [subheader]="'Cantidad: ' + (producto.cantidad || 1)"
+      class="carrito-card"
+    >
+      <img
+        *ngIf="producto.imagen"
+        [src]="getRutaImagen(producto.imagen)"
+        alt="Imagen"
+        class="producto-img"
+      />
+      <p *ngIf="producto.descripcion">{{ producto.descripcion }}</p>
+      <p><strong>Precio: </strong>${{ producto.precio }}</p>
+      <button
+        pButton
+        type="button"
+        icon="pi pi-trash"
+        label="Eliminar"
+        (click)="eliminar(producto.id)"
+        class="p-button-danger"
+      ></button>
+    </p-card>
+  </div>
 </div>
 
 <div *ngIf="productos.length > 0" class="total" style="margin-top: 1rem;">

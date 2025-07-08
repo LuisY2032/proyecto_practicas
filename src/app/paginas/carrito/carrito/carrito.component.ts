@@ -58,6 +58,13 @@ export class CarritoComponent implements OnInit {
     }
   }
 
+  
+  getRutaImagen(imagen: string): string {
+  if (!imagen) return '';
+  return imagen.startsWith('http') ? imagen : 'assets/' + imagen;
+}
+
+
   async vaciarCarrito() {
     await this.carritoService.vaciarCarrito();
     this.messageService.add({

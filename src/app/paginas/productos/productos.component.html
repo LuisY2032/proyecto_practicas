@@ -13,7 +13,7 @@
   </button>
 
   <div class="table-container">
-    <p-table [value]="productos" [paginator]="true" [rows]="10">
+    <p-table [value]="productos" [paginator]="true" [rows]="4">
   <ng-template pTemplate="header">
     <tr>
       <th>Nombre</th>
@@ -33,7 +33,17 @@
       <td>{{ producto.nombre }}</td>
       <td>{{ getGenerosNames(producto.generos) }}</td>
       <td>{{ producto.precio | currency }}</td>
-      <td> {{producto.imagen}} </td>
+      <td>
+  <p-image
+    *ngIf="producto.imagen"
+    [src]="getRutaImagen(producto.imagen)"
+    [alt]="producto.nombre"
+    width="80"
+    [preview]="true"
+    styleClass="rounded-image shadow-1" />
+</td>
+
+
       <td>{{ producto.valoracion }}</td>
       <td>{{ producto.fechaLanzamiento.toDate() | date: 'dd/MM/yyyy' }}</td>
       <td>{{ producto.disponible ? 'Sí' : 'No' }}</td>
@@ -110,7 +120,7 @@
     pInputText
     id="imagen"
     [(ngModel)]="producto.imagen"
-    placeholder="images/re.jpg"
+    placeholder="imagenes/re.jpg"
     name="imagen"
   />
 <img *ngIf="producto.imagen" 

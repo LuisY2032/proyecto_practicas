@@ -22,6 +22,7 @@ import { MessageService } from 'primeng/api';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { FileUploadModule } from 'primeng/fileupload';
+import { ImageModule } from 'primeng/image';
 
 
 // Interfaces y servicios
@@ -51,7 +52,8 @@ import { ProductosService } from '../../services/productos.service';
     Textarea,
     ButtonModule,
     InputTextModule,
-    ToastModule
+    ToastModule,
+    ImageModule,
   ],
   providers: [MessageService],
   templateUrl: './productos.component.html',
@@ -102,6 +104,18 @@ export class ProductosComponent implements OnInit {
       this.productos = data;
     });
   }
+
+  getRutaImagen(imagen: string): string {
+  if (!imagen) return ''; // evita errores
+
+  if (imagen.startsWith("http")) {
+    return imagen; // URL externa
+  }
+
+  // Concatenamos la ruta completa para la carpeta 'assets/imagenes'
+  return "assets/" + imagen;
+}
+
 
   async guardarProducto() {
   if (this.isEdit && this.producto.id) {

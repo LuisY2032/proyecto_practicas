@@ -3,14 +3,14 @@
 
 <div class="productos-grid">
   <p-card
-    *ngFor="let producto of productos"
+    *ngFor="let producto of productosPaginados"
     [header]="producto.titulo"
     [subheader]="'$' + producto.precio"
     styleClass="producto-card"
   >
     <img
       *ngIf="producto.imagen"
-      [src]="producto.imagen"
+      [src]="getRutaImagen(producto.imagen)"
       alt="{{ producto.titulo }}"
       class="producto-imagen"
     />
@@ -25,5 +25,11 @@
     ></button>
   </p-card>
 </div>
+
+<p-paginator
+  [rows]="4"
+  [totalRecords]="productos.length"
+  (onPageChange)="cambiarPagina($event)">
+</p-paginator>
 
 
