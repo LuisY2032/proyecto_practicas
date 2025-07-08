@@ -33,17 +33,7 @@
       <td>{{ producto.nombre }}</td>
       <td>{{ getGenerosNames(producto.generos) }}</td>
       <td>{{ producto.precio | currency }}</td>
-
-      <!-- ✅ Aquí se muestra la imagen como miniatura -->
-      <td>
-        <img
-          *ngIf="producto.imagen"
-          [src]="producto.imagen"
-          alt="Imagen del juego"
-          style="max-width: 70px; max-height: 70px;"
-        />
-      </td>
-
+      <td> {{producto.imagen}} </td>
       <td>{{ producto.valoracion }}</td>
       <td>{{ producto.fechaLanzamiento.toDate() | date: 'dd/MM/yyyy' }}</td>
       <td>{{ producto.disponible ? 'Sí' : 'No' }}</td>
