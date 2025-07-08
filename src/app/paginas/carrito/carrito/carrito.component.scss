@@ -1,0 +1,27 @@
+.total {
+  text-align: right;
+  margin-top: 1rem;
+}
+
+.producto {
+  margin-bottom: 1rem;
+}
+
+.producto-img {
+  width: 100%;
+  max-height: 150px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.total {
+  margin-top: 2rem;
+  text-align: right;
+}
+
+.acciones {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  gap: 1rem;
+}

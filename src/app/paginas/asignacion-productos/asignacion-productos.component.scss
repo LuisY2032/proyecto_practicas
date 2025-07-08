@@ -1,0 +1,165 @@
+/* === Variables del módulo estilo "Proyectos" === */
+$primary-color: #6c5ce7;
+$primary-hover: #5e50d4;
+$secondary-color: #00b894;
+$accent-color: #ff7675;
+$background-color: #f5f6fa;
+$text-color: #2d3436;
+$white: #ffffff;
+
+$border-radius: 10px;
+$shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+/* === Contenedor Principal === */
+.container {
+  padding: 3rem;
+  max-width: 1500px;
+  margin: 0 auto;
+  background-color: $background-color;
+}
+
+/* === Título Principal === */
+h1 {
+  color: $primary-color;
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* === Estilos Profundos para PrimeNG === */
+:host ::ng-deep {
+  /* === Tarjetas === */
+  .p-card {
+    border-radius: $border-radius;
+    box-shadow: $shadow;
+    background-color: $white;
+    margin-bottom: 2rem;
+
+    .p-card-header {
+      background-color: $primary-color;
+      color: $white;
+      padding: 1rem 1.5rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .p-card-body {
+      padding: 1.5rem;
+    }
+  }
+
+  /* === Formularios === */
+  .p-dropdown,
+  .p-inputnumber {
+    width: 100%;
+    border-radius: 6px;
+  }
+
+  .p-fluid {
+    .field {
+      margin-bottom: 1rem;
+
+      label {
+        display: block;
+        margin-bottom: 0.4rem;
+        font-weight: 500;
+        color: $text-color;
+      }
+    }
+  }
+
+  /* === Botones === */
+  .p-button {
+    font-weight: 600;
+    border-radius: 6px;
+
+    &.add-button {
+      background-color: $primary-color;
+      border-color: $primary-color;
+      color: $white;
+
+      &:hover {
+        background-color: $primary-hover;
+        border-color: $primary-hover;
+      }
+    }
+
+    &.delete-button {
+      color: $accent-color !important;
+
+      &:hover {
+        background-color: $accent-color !important;
+        color: $white !important;
+      }
+    }
+  }
+
+  /* === Tabla === */
+  .p-datatable {
+    border-radius: $border-radius;
+
+    .p-datatable-thead > tr > th {
+      background-color: $background-color;
+      color: $text-color;
+      font-weight: 600;
+    }
+
+    .p-datatable-tbody > tr {
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #f0f0f0 !important;
+      }
+    }
+
+    .p-datatable-footer {
+      background: $background-color;
+      font-weight: bold;
+      color: $text-color;
+    }
+  }
+
+  /* === Detalles del Proyecto === */
+  .project-details {
+    background-color: $background-color;
+    padding: 1rem 1.5rem;
+    border-radius: $border-radius;
+    margin-top: 1rem;
+    box-shadow: $shadow;
+
+    h3 {
+      margin-top: 0;
+      color: $primary-color;
+      font-size: 1.2rem;
+    }
+
+    p {
+      margin-bottom: 0.4rem;
+    }
+  }
+
+  /* === Fila Total === */
+  .total-row {
+    font-weight: bold;
+    background-color: $background-color;
+    color: $text-color;
+  }
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  :host ::ng-deep {
+    .p-card .p-card-body {
+      padding: 1rem;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+    }
+  }
+}

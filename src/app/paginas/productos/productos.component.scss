@@ -1,0 +1,209 @@
+/* Variables de diseño */
+$primary-color: #4f3af5;     // Morado vibrante
+$secondary-color: #9048ee;   // Turquesa
+$accent-color: #ff7675;      // Coral
+$dark-color: #2d3436;        // Gris oscuro
+$light-color: #f5f6fa;       // Fondo claro
+$bg-gradient: linear-gradient(135deg, #6c5ce7, #00cec9);
+$border-radius: 10px;
+$shadow-light: 0 4px 12px rgba(0, 0, 0, 0.1);
+$shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.15);
+
+/* Contenedor principal */
+.productos-container {
+  padding: 2rem;
+  background-color: $light-color;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  color: $dark-color;
+}
+
+/* Título */
+h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: $primary-color;
+  text-align: center; 
+}
+
+/* Botón principal */
+.add-button {
+  background: $bg-gradient;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: $border-radius;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: $shadow-light;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: $shadow-hover;
+    transform: translateY(-2px);
+  }
+}
+
+/* Tabla */
+.table-container {
+  border-radius: $border-radius;
+  overflow: hidden;
+  background: white;
+  box-shadow: $shadow-light;
+  margin-top: 1rem;
+}
+
+/* PrimeNG Overrides */
+:host ::ng-deep {
+  .p-datatable {
+    .p-datatable-header {
+      background: $primary-color;
+      color: rgb(255, 100, 100);
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+    }
+
+    .p-datatable-thead > tr > th {
+      background-color: #1165ff;
+      color: white;
+      font-weight: 600;
+      padding: 1rem;
+    }
+
+    .p-datatable-tbody > tr {
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #f1f2f6 !important;
+      }
+
+      td {
+        padding: 0.9rem;
+        border-color: #eee;
+      }
+    }
+  }
+
+  /* Botones de acción */
+  .action-button {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: none;
+    font-size: 1rem;
+    margin: 0 0.3rem;
+    transition: all 0.3s ease;
+    box-shadow: $shadow-light;
+
+    &.edit-button {
+      background-color: #dfe6e9;
+      color: $secondary-color;
+
+      &:hover {
+        background-color: $secondary-color;
+        color: white;
+        transform: scale(1.1);
+      }
+    }
+
+    &.delete-button {
+      background-color: #ffeaea;
+      color: $accent-color;
+
+      &:hover {
+        background-color: $accent-color;
+        color: white;
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  /* Diálogo */
+  .p-dialog {
+    border-radius: $border-radius;
+    text-align: justify;
+    
+
+    .p-dialog-header {
+      background: $primary-color;
+      color: white;
+      border-radius: $border-radius $border-radius 0 0;
+      font-size: 1.2rem;
+      justify-content: center;
+
+    }
+
+    .p-dialog-content {
+      padding: 3rem;
+
+      .form-section {
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid #ddd;
+      
+
+      }
+
+      label {
+        font-weight: 600;
+        margin-bottom: 0.9rem;
+        display: block;
+        color: #131e81;
+
+        
+      }
+    }
+  }
+
+  /* Inputs generales */
+  .p-inputtext,
+  .p-dropdown,
+  .p-inputnumber,
+  .p-inputtextarea,
+  .p-calendar,
+  .p-multiselect {
+    width: 100%;
+    border-radius: $border-radius !important;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s ease;
+    text-align: center; 
+
+
+    &:focus {
+      border-color: $primary-color;
+      box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.2);
+    }
+  }
+
+  /* Toggle y Rating */
+  .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+    background: $primary-color; 
+  }
+
+  .p-rating .p-rating-icon {
+    color: $primary-color;
+    text-align: center; 
+  }
+
+  .slider-value {
+    margin-left: 1rem;
+    font-weight: 600;
+    color: $primary-color;
+  }
+}
+
+/* Acciones en el diálogo */
+.dialog-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #ddd;
+ 
+}
+
+
+

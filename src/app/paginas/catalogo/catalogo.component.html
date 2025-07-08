@@ -1,0 +1,29 @@
+<p-toast></p-toast>
+<h2>Catálogo de Productos</h2>
+
+<div class="productos-grid">
+  <p-card
+    *ngFor="let producto of productos"
+    [header]="producto.titulo"
+    [subheader]="'$' + producto.precio"
+    styleClass="producto-card"
+  >
+    <img
+      *ngIf="producto.imagen"
+      [src]="producto.imagen"
+      alt="{{ producto.titulo }}"
+      class="producto-imagen"
+    />
+    <p>{{ producto.descripcion }}</p>
+
+    <button
+      pButton
+      type="button"
+      label="Agregar al carrito"
+      icon="pi pi-shopping-cart"
+      (click)="agregarAlCarrito(producto)"
+    ></button>
+  </p-card>
+</div>
+
+

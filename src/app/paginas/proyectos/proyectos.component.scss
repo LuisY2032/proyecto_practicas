@@ -1,0 +1,240 @@
+@use "sass:color";
+
+/* Variables locales */
+$primary-color: #6c5ce7;
+$secondary-color: #00cec9;
+$accent-color: #ff7675;
+$dark-color: #2d3436;
+$light-color: #f5f6fa;
+$bg-gradient: linear-gradient(135deg, #6c5ce7, #00cec9);
+$border-radius: 10px;
+$shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
+$shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.15);
+
+/* Contenedor principal */
+.container {
+  padding: 2rem;
+  max-width: 1500px;
+  margin: 0 auto;
+  background-color: $light-color;
+  font-family: 'Segoe UI', sans-serif;
+  color: $dark-color;
+}
+
+/* Encabezado */
+h1 {
+  color: $primary-color;
+  margin-bottom: 2rem;
+  font-size: 2.2rem;
+  font-weight: 700;
+  text-align: center; 
+}
+
+/* Botón principal */
+.add-button {
+  background: $bg-gradient;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: $border-radius;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  box-shadow: $shadow-light;
+
+  &:hover {
+    box-shadow: $shadow-hover;
+    transform: translateY(-2px);
+  }
+}
+
+/* Tabla */
+:host ::ng-deep {
+  .p-datatable {
+    box-shadow: $shadow-light;
+    border-radius: $border-radius;
+    overflow: hidden;
+
+    .p-datatable-header {
+      background: $primary-color;
+      color: white;
+      border: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .p-datatable-thead > tr > th {
+      background: #1165ff;
+      color: white;
+      font-weight: 600;
+      padding: 1rem;
+      border: none;
+    }
+
+    .p-datatable-tbody > tr {
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #f1f2f6 !important;
+      }
+
+      > td {
+        border-color: #eee;
+        padding: 0.9rem;
+        vertical-align: middle;
+      }
+    }
+
+    .p-paginator {
+      background: #f8f9fa;
+      border: none;
+      border-radius: 0 0 $border-radius $border-radius;
+      padding: 1rem;
+    }
+  }
+
+  /* Botones de acción */
+  .action-button {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    margin: 0 0.25rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: $shadow-light;
+
+    &.p-button-text {
+      background-color: transparent !important;
+      color: $primary-color;
+
+      &:hover {
+        background-color: rgba(108, 92, 231, 0.1) !important;
+        transform: scale(1.1);
+      }
+    }
+
+    &.p-button-danger {
+      color: $accent-color !important;
+
+      &:hover {
+        color: white !important;
+        background-color: $accent-color !important;
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  /* Diálogo */
+  .p-dialog {
+    border-radius: $border-radius;
+    box-shadow: $shadow-hover;
+
+    .p-dialog-header {
+      background: $primary-color;
+      color: white;
+      border-radius: $border-radius $border-radius 0 0;
+      padding: 1.25rem;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+
+    .p-dialog-content {
+      padding: 2rem;
+
+      .p-field {
+        margin-bottom: 1.5rem;
+
+        label {
+          display: block;
+          margin-bottom: 0.5rem;
+          font-weight: 600;
+          color: #444;
+        }
+
+        input,
+        textarea,
+        .p-inputnumber {
+          width: 100%;
+          border-radius: $border-radius;
+          border: 1px solid #ccc;
+          padding: 0.6rem 0.75rem;
+          transition: border-color 0.3s ease;
+
+          &:focus {
+            border-color: $primary-color;
+            box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.2);
+          }
+        }
+
+        textarea {
+          resize: vertical;
+          min-height: 100px;
+        }
+      }
+    }
+
+    .p-dialog-footer {
+      border-top: 1px solid #eee;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+
+      .p-button {
+        border-radius: $border-radius;
+        font-weight: 600;
+        padding: 0.6rem 1.2rem;
+        font-size: 1rem;
+      }
+
+      .p-button-text {
+        background-color: transparent;
+        color: $dark-color;
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.05);
+        }
+      }
+
+      .p-button-success {
+        background-color: $secondary-color;
+        border: none;
+
+        &:hover {
+          background-color: color.adjust($secondary-color, $lightness: -10%);
+        }
+      }
+    }
+  }
+
+  /* InputNumber PrimeNG */
+  .p-inputnumber {
+    width: 100%;
+
+    input {
+      border-radius: $border-radius;
+      border: 1px solid #ccc;
+
+      &:focus {
+        border-color: $primary-color;
+        box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.2);
+      }
+    }
+  }
+}
+
+
+/* Media queries para pantallas pequeñas */
+@media (max-width: 768px) {
+  .container {
+    padding: 0.5rem;
+  }
+
+  h1, h2 {
+    font-size: 1.5rem;
+  }
+}

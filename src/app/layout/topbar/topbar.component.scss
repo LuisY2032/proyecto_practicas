@@ -1,0 +1,141 @@
+@use 'sass:color';
+
+/* Variables */
+$primary-color: #6c5ce7;
+$secondary-color: #00cec9;
+$accent-color: #e00000;
+$dark-color: #1165ff;
+$light-color: #f5f6fa;
+$topbar-height: 60px;
+$text-light: #ffffff;
+
+/* Barra de navegación */
+:host ::ng-deep {
+  .topbar-menu {
+    background-color: $dark-color;
+    border: none;
+    border-radius: 0;
+    padding: 0 1.5rem;
+    height: $topbar-height;
+    box-shadow: 0 2px 10px rgb(255, 255, 255);
+
+    /* Elementos del menú */
+    .p-menuitem-text,
+    .p-menuitem-icon {
+      color: white;
+    }
+
+    .p-menubar-root-list {
+      > .p-menuitem {
+        > .p-menuitem-link {
+          color: white;
+          padding: 0.75rem 1rem;
+          border-radius: 4px;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background-color: color.adjust($primary-color, $lightness: 10%);
+            
+            .p-menuitem-text,
+            .p-menuitem-icon {
+              color: white;
+            }
+          }
+
+          &:focus {
+            box-shadow: none;
+          }
+        }
+
+        &.p-menuitem-active {
+          > .p-menuitem-link {
+            background-color: color.adjust($primary-color, $lightness: 5%);
+            
+            .p-menuitem-text,
+            .p-menuitem-icon {
+              color: white;
+              font-weight: 600;
+            }
+          }
+        }
+      }
+    }
+
+    /* Botón de cerrar sesión */
+    .p-button {
+      &.p-button-danger {
+        background-color: $accent-color;
+        border-color: $accent-color;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        transition: all 0.3s ease;
+  
+        &:hover {
+          background-color: color.adjust($accent-color, $lightness: -10%);
+          border-color: color.adjust($accent-color, $lightness: -10%);
+        }
+
+        .pi,
+        span {
+          color: $text-light;
+        }
+      }
+    }
+
+    /* Logo o título */
+    .p-menubar-start {
+      .app-name {
+        color: white;
+        font-size: 1.4rem;
+        font-weight: bold;
+        margin: 0;
+      }
+    }
+  }
+}
+
+/* Estilos para el menú desplegable en móvil */
+:host ::ng-deep {
+  .p-menubar .p-menubar-button {
+    color: $text-light !important;
+
+    &:hover {
+      background-color: color.adjust($primary-color, $lightness: 10%);
+    }
+  }
+
+  .p-tieredmenu {
+    background-color: $dark-color;
+
+    .p-menuitem-text,
+    .p-menuitem-icon {
+      color: white;
+    }
+
+    .p-menuitem-link:hover {
+      background-color: color.adjust($primary-color, $lightness: 5%);
+    }
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  :host ::ng-deep {
+    .topbar-menu {
+      padding: 0 1rem;
+
+      .p-button {
+        &.p-button-danger {
+          padding: 0.5rem;
+
+          span {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

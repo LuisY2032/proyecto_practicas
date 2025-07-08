@@ -1,0 +1,199 @@
+
+@use "sass:color";
+/* ----- Variables (reutilizables en otros componentes) ----- */
+$primary-color: #1d1ada;       /* Morado */
+$secondary-color: #00cec9;     /* Turquesa */
+$error-color: #ff7675;         /* Rojo coral */
+$text-color: #2d3436;          /* Texto oscuro */
+$light-bg: #f5f6fa;            /* Fondo claro */
+$border-radius: 8px;
+
+/* ----- Animaciones ----- */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ----- Contenedor Principal ----- */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(to right, #6c5ce7, #00cec9);
+  padding: 1rem;
+}
+
+/* ----- Logo ----- */
+.auth-logo {
+  width: 148px;
+  height: auto;
+  margin-bottom: 25px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 8px;
+  box-shadow: #6c5ce7 6px 6px ;
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+/* ----- Formulario ----- */
+.auth-form {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  background: white;
+  border-radius: $border-radius;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  animation: fadeInUp 0.6s ease forwards;
+
+  h2 {
+    color: $text-color;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  /* ----- Inputs ----- */
+  input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    border: 2px solid #ddd;
+    border-radius: $border-radius;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+
+    &:focus {
+      border-color: $primary-color;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.2);
+    }
+
+    &::placeholder {
+      color: rgba(#2d3436, 0.5);
+    }
+  }
+
+  /* ----- Botón Principal ----- */
+  button[type="submit"] {
+    width: 100%;
+    padding: 0.75rem;
+    background: $primary-color;
+    color: white;
+    border: none;
+    border-radius: $border-radius;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+
+    &:hover {
+      background: color.adjust($primary-color, $lightness: -10%);
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  /* ----- Botón Toggle (Cambiar entre Login/Registro) ----- */
+  .toggle {
+    width: 100%;
+    padding: 0.75rem;
+    background: transparent;
+    color: $primary-color;
+    border: none;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: color 0.3s;
+
+    &:hover {
+      color: color.adjust($secondary-color, $lightness: -10%);
+      text-decoration: underline;
+    }
+  }
+}
+
+/* ----- Estado "Logged In" ----- */
+.auth-logged {
+  text-align: center;
+  padding: 2rem;
+  background: white;
+  border-radius: $border-radius;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 0 auto;
+  animation: fadeInUp 0.6s ease forwards;
+
+  p {
+    color: #2d3436;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+    background: $primary-color;
+    color: white;
+    border: none;
+    border-radius: $border-radius;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background: color.adjust($primary-color, $lightness: -10%);
+    }
+  }
+}
+
+/* ----- Notificación (Opcional si la agregas con Angular) ----- */
+.toast-success {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: $secondary-color;
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: $border-radius;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  animation: fadeInUp 0.5s ease forwards;
+  z-index: 1000;
+}
+
+
+//
+
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; // ocupa toda la altura de la pantalla
+  background-color: #f4f4f4;
+}
+
+.welcome-card {
+  width: 500px;
+  padding: 2rem;
+  text-align: center;
+  font-size: 1.25rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.welcome-text {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-top: 1rem;
+  color: #333;
+}

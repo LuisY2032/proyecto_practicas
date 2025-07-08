@@ -1,0 +1,107 @@
+<!-- Componente de notificación para mostrar mensajes tipo toast -->
+<p-toast></p-toast>
+
+<div class="container">
+  <h1>Administración de Proyectos</h1>
+
+  <!-- Botón para abrir el formulario de nuevo proyecto -->
+  <button
+    pButton
+    label="Nuevo Proyecto"
+    icon="pi pi-plus"
+    class="add-button"
+    (click)="displayDialog = true; isEdit = false; proyecto = nuevoProyecto()">
+  </button>
+
+  <br><br>
+
+  <!-- Tabla para listar los proyectos existentes con paginación -->
+  <p-table [value]="proyectos" [paginator]="true" [rows]="5">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Presupuesto</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-proyecto>
+      <tr>
+        <td>{{ proyecto.nombre }}</td>
+        <td>{{ proyecto.descripcion }}</td>
+        <td>{{ proyecto.presupuesto | currency }}</td>
+        <td>
+          <!-- Botón para editar el proyecto -->
+          <button
+            pButton
+            icon="pi pi-pencil"
+            class="action-button p-button-text"
+            (click)="editarProyecto(proyecto)">
+          </button>
+          <!-- Botón para eliminar el proyecto -->
+          <button
+            pButton
+            icon="pi pi-trash"
+            class="action-button p-button-text p-button-danger"
+            (click)="eliminarProyecto(proyecto.id)">
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <!-- Diálogo modal para crear o editar un proyecto -->
+  <p-dialog
+    header="{{ isEdit ? 'Editar' : 'Nuevo' }} Proyecto"
+    [(visible)]="displayDialog"
+    [style]="{ width: '50vw' }">
+    
+    <!-- Formulario de proyecto -->
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" type="text" pInputText [(ngModel)]="proyecto.nombre" />
+      </div>
+
+      <div class="p-field">
+        <label for="descripcion">Descripción</label>
+        <textarea
+          id="descripcion"
+          pInputTextarea
+          [(ngModel)]="proyecto.descripcion"
+          rows="3">
+        </textarea>
+      </div>
+
+      <div class="p-field">
+        <label for="presupuesto">Presupuesto</label>
+        <p-inputNumber
+          id="presupuesto"
+          [(ngModel)]="proyecto.presupuesto"
+          mode="currency"
+          currency="USD">
+        </p-inputNumber>
+      </div>
+    </div>
+
+    <!-- Botones del pie del diálogo -->
+    <ng-template pTemplate="footer">
+      <button
+        pButton
+        label="Cancelar"
+        icon="pi pi-times"
+        (click)="displayDialog = false"
+        styleClass="p-button-text">
+      </button>
+
+      <button
+        pButton
+        label="Guardar"
+        icon="pi pi-check"
+        (click)="guardarProyecto()"
+        styleClass="p-button-success">
+      </button>
+    </ng-template>
+  </p-dialog>
+</div>

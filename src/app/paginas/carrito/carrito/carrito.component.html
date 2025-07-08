@@ -1,0 +1,29 @@
+<p-toast></p-toast>
+
+<h2>Carrito de Compras</h2>
+
+<div *ngIf="productos.length === 0">
+  <p>Tu carrito está vacío.</p>
+</div>
+
+<div *ngFor="let producto of productos" class="producto" style="margin-bottom:1rem;">
+  <p-card [header]="producto.titulo" [subheader]="'Cantidad: ' + (producto.cantidad || 1)">
+    <img *ngIf="producto.imagen" [src]="producto.imagen" alt="Imagen" class="producto-img" style="width:100%; max-height: 200px; object-fit: contain;" />
+    <p *ngIf="producto.descripcion">{{ producto.descripcion }}</p>
+    <p><strong>Precio: </strong>${{ producto.precio }}</p>
+    <button pButton type="button" icon="pi pi-trash" label="Eliminar" (click)="eliminar(producto.id)" class="p-button-danger"></button>
+  </p-card>
+</div>
+
+<div *ngIf="productos.length > 0" class="total" style="margin-top: 1rem;">
+  <h3>Total a pagar: ${{ total | number: '1.2-2' }}</h3>
+</div>
+
+<div class="acciones" style="margin-top: 1rem;">
+    <button pButton label="Realizar compra" icon="pi pi-check" class="p-button-success" (click)="comprar()"></button>
+    <button pButton label="Vaciar carrito" icon="pi pi-trash" class="p-button-warning" (click)="vaciarCarrito()"></button>
+</div><br>
+
+
+
+

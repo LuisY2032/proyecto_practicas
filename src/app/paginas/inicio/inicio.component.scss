@@ -1,0 +1,132 @@
+/* Fuente moderna y colores suaves */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(to right, #f0f2f5, #f9f9f9);
+  color: #2c3e50;
+  padding: 30px;
+}
+
+/* Contenedor principal */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 1px;
+}
+
+/* Caja de bienvenida */
+.welcome-box {
+  background-color:#e0e0eb;
+  padding: 25px 30px;
+  border-radius: 20px;
+  box-shadow: 5 8px 30px rgba(0, 0, 0, 0.06);
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.welcome-box h1 {
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.welcome-box p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.auth-logo {
+  margin-top: 5px;
+  max-width: 200px;
+  border-radius: 15px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Dashboard de tarjetas */
+.dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.card {
+  background-color: #e9e9f5;
+  flex: 1 1 300px;
+  padding: 25px 25px;
+  border-radius: 18px;
+  box-shadow: 5 20px 40px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(to right, #47e0e6, #5b2cdb);
+  top: 0;
+  left: 0;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+}
+
+.card h2 {
+  font-size: 1.5rem;
+  margin: 20px 0 10px;
+  color: #2c3e50;
+}
+
+.card p {
+  color: #555555;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+/* Botón elegante */
+.btn {
+  background: linear-gradient(to right, #47e0e6, #5b2cdb);
+  color: white;
+  padding: 12px 24px;
+  text-decoration: none;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.btn:hover {
+  background: linear-gradient(to right, #05abb1, #3705be);
+  transform: translateY(-2px);
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+  .dashboard {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+
+

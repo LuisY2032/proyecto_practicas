@@ -1,0 +1,18 @@
+<p-menubar [model]="items" [styleClass]="'topbar-menu'">
+  <ng-template pTemplate="start">
+  <h1 class="app-name">
+    <i class="pi pi-desktop" style="margin-right: 0.5rem;"></i>
+    Game Store
+  </h1>
+</ng-template>
+
+
+
+  
+  <ng-template pTemplate="end">
+    <button *ngIf="isAuthenticated()" class="p-button p-button-danger" (click)="logout()">
+      <i class="pi pi-sign-out"></i>
+      <span>Cerrar sesión</span>
+    </button>
+  </ng-template>
+</p-menubar>

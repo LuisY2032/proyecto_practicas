@@ -1,0 +1,12 @@
+.acciones-btns {
+  display: flex;
+  align-items: center;
+
+  button {
+    margin-right: 0.5rem;
+
+    &:last-child {
+      margin-right: 0; // evita margen en el último botón
+    }
+  }
+}
