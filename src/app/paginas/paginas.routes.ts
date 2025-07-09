@@ -10,6 +10,7 @@ import { CatalogoComponent } from "./catalogo/catalogo.component";
 import { CarritoComponent } from "./carrito/carrito/carrito.component";
 import { FacturaComponent } from "./factura/factura.component";
 import { AdminOrdenesComponent } from "./admin-ordenes/admin-ordenes.component";
+import { DashboardComponent } from "./dashboard/dashboard.component";
 
 export default [
   {
@@ -19,7 +20,8 @@ export default [
       {
         path: 'inicio',
         component: InicioComponent,
-        title: 'Inicio'
+        title: 'Inicio',
+        canActivate: [roleGuard('administrador')]
         // Todos pueden acceder (admin y usuario)
       },
       {
@@ -51,6 +53,11 @@ export default [
         component: AsignacionProductosComponent,
         title: 'Asignación',
         canActivate: [roleGuard('administrador')]
+      },
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        title: 'Dashboard',
       },
       {
         path: 'catalogo',

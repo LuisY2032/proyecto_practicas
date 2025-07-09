@@ -1,0 +1,21 @@
+<div class="dashboard-container">
+  <p-card class="dashboard-card">
+    <ng-template pTemplate="header">
+      <img src="images/game-store.png" alt="Game Store" class="dashboard-logo" />
+    </ng-template>
+
+    <!-- Título y descripción -->
+    <div class="dashboard-header">
+      <h2>Bienvenido a Game Store 🎮</h2>
+      <p>Explora nuestro catálogo, gestiona tus compras y diviértete con los mejores juegos.</p>
+    </div>
+
+    <!-- Botones de navegación -->
+    <div class="dashboard-buttons">
+      <button pButton label="Ver Catálogo" icon="pi pi-book" class="p-button-lg p-button-primary" (click)="goTo('/paginas/catalogo')"></button>
+      <button pButton label="Ir al Carrito" icon="pi pi-shopping-cart" class="p-button-lg p-button-success" (click)="goTo('/paginas/carrito')"></button>
+      <button pButton label="Ver Facturas" icon="pi pi-file" class="p-button-lg p-button-info" (click)="goTo('/paginas/factura')"></button>
+    </div>
+  </p-card>
+</div>
+
