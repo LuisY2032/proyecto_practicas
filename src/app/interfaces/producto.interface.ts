@@ -1,4 +1,4 @@
-// Interfaz que define los géneros para ropa, con nombre y código
+// Interfaz que define los géneros, con nombre y código
 export interface Generos {
   name: string;  
   code: string;  

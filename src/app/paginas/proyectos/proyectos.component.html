@@ -1,10 +1,11 @@
-<!-- Componente de notificación para mostrar mensajes tipo toast -->
+<!-- Componente de notificación tipo toast para mostrar mensajes flotantes -->
 <p-toast></p-toast>
 
 <div class="container">
+  <!-- Título principal de la página -->
   <h1>Administración de Proyectos</h1>
 
-  <!-- Botón para abrir el formulario de nuevo proyecto -->
+  <!-- Botón para abrir el diálogo y crear un nuevo proyecto -->
   <button
     pButton
     label="Nuevo Proyecto"
@@ -15,8 +16,9 @@
 
   <br><br>
 
-  <!-- Tabla para listar los proyectos existentes con paginación -->
+  <!-- Tabla que lista los proyectos existentes con paginación -->
   <p-table [value]="proyectos" [paginator]="true" [rows]="5">
+    <!-- Cabecera de la tabla con los títulos de las columnas -->
     <ng-template pTemplate="header">
       <tr>
         <th>Nombre</th>
@@ -26,11 +28,12 @@
       </tr>
     </ng-template>
 
+    <!-- Cuerpo de la tabla: filas que muestran cada proyecto -->
     <ng-template pTemplate="body" let-proyecto>
       <tr>
-        <td>{{ proyecto.nombre }}</td>
-        <td>{{ proyecto.descripcion }}</td>
-        <td>{{ proyecto.presupuesto | currency }}</td>
+        <td>{{ proyecto.nombre }}</td> <!-- Muestra el nombre -->
+        <td>{{ proyecto.descripcion }}</td> <!-- Muestra la descripción -->
+        <td>{{ proyecto.presupuesto | currency }}</td> <!-- Presupuesto con formato moneda -->
         <td>
           <!-- Botón para editar el proyecto -->
           <button
@@ -51,13 +54,13 @@
     </ng-template>
   </p-table>
 
-  <!-- Diálogo modal para crear o editar un proyecto -->
+  <!-- Diálogo modal que sirve tanto para crear como para editar proyectos -->
   <p-dialog
     header="{{ isEdit ? 'Editar' : 'Nuevo' }} Proyecto"
     [(visible)]="displayDialog"
     [style]="{ width: '50vw' }">
     
-    <!-- Formulario de proyecto -->
+    <!-- Formulario para ingresar datos del proyecto -->
     <div class="p-fluid">
       <div class="p-field">
         <label for="nombre">Nombre</label>
@@ -85,7 +88,7 @@
       </div>
     </div>
 
-    <!-- Botones del pie del diálogo -->
+    <!-- Botones al pie del diálogo: cancelar y guardar -->
     <ng-template pTemplate="footer">
       <button
         pButton

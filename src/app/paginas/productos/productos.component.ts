@@ -89,97 +89,104 @@ export class ProductosComponent implements OnInit {
     { name: 'Estrategia', code: 'ESTR' }
   ];
 
- // Inyección del servicio de productos
-  constructor(private productosService: ProductosService,
-    private messageService: MessageService
-  ) {}
+// Inyección del servicio de productos y del servicio de mensajes para notificaciones
+constructor(private productosService: ProductosService,
+            private messageService: MessageService) { }
 
-  ngOnInit() {
-    this.getProductos();
-  }
-
-// Obtiene los productos desde Firestore y los guarda en el arreglo
-  getProductos() {
-    this.productosService.getProductos().subscribe((data) => {
-      this.productos = data;
-    });
-  }
-
-  getRutaImagen(imagen: string): string {
-  if (!imagen) return ''; // evita errores
-
-  if (imagen.startsWith("http")) {
-    return imagen; // URL externa
-  }
-
-  // Concatenamos la ruta completa para la carpeta 'assets/imagenes'
-  return "assets/" + imagen;
-}
-
-
-  async guardarProducto() {
-  if (this.isEdit && this.producto.id) {
-    await this.productosService.actualizarProducto(this.producto.id, this.producto);
-    this.messageService.add({ severity: 'success', summary: 'Actualizado', detail: 'Producto actualizado correctamente' });
-  } else {
-    await this.productosService.crearProducto(this.producto);
-    this.messageService.add({ severity: 'success', summary: 'Creado', detail: 'Producto creado exitosamente' });
-  }
-  this.displayDialog = false;
-}
-
-// Prepara el formulario con los datos del producto seleccionado para edición
-  editarProducto(producto: any) {
-    this.producto = { ...producto };
-    this.isEdit = true;
-    this.displayDialog = true;
-  }
-
- async eliminarProducto(id: string) {
-  await this.productosService.eliminarProducto(id);
-  this.messageService.add({ severity: 'warn', summary: 'Eliminado', detail: 'Producto eliminado' });
+ngOnInit() {
+  // Al iniciar el componente, se obtienen los productos desde el servicio
   this.getProductos();
 }
 
-// Devuelve una cadena con los nombres de los géneros, separados por comas
-getGenerosNames(generos: any[]): string {
-  // Si el array está vacío o no existe, retorna texto por defecto
-  if (!generos || generos.length === 0) {
-    return 'No especificado';
-  }
-
-  // Si los géneros ya son strings, los une con coma
-  if (typeof generos[0] === 'string') {
-    return generos.join(', ');
-  }
-
-  // Si los géneros son objetos con propiedad 'name', extrae los nombres y los une
-  if (generos[0]?.name) {
-    return generos.map(g => g.name).join(', ');
-  }
-
-  // En cualquier otro caso, retorna texto por defecto
-  return 'No especificado';
+// Obtiene los productos desde Firestore y los guarda en el arreglo local 'productos'
+getProductos() {
+  this.productosService.getProductos().subscribe((data) => {
+    this.productos = data;
+  });
 }
 
-// Devuelve un objeto Producto con valores por defecto para iniciar uno nuevo
+// Devuelve la ruta completa de la imagen para usar en el template
+getRutaImagen(imagen: string): string {
+  if (!imagen) return ''; // Evita errores si la imagen está vacía o es nula
+
+  if (imagen.startsWith("http")) {
+    return imagen; // Si es URL externa, retorna tal cual
+  }
+
+  // Si es una ruta relativa, concatena con carpeta assets para poder mostrarla
+  return "assets/" + imagen;
+}
+
+// Guarda un producto: si está en modo edición, actualiza; si no, crea uno nuevo
+async guardarProducto() {
+  if (this.isEdit && this.producto.id) {
+    // Actualiza producto existente en Firestore
+    await this.productosService.actualizarProducto(this.producto.id, this.producto);
+    this.messageService.add({ severity: 'success', summary: 'Actualizado', detail: 'Producto actualizado correctamente' });
+  } else {
+    // Crea un nuevo producto en Firestore
+    await this.productosService.crearProducto(this.producto);
+    this.messageService.add({ severity: 'success', summary: 'Creado', detail: 'Producto creado exitosamente' });
+  }
+  // Cierra el diálogo tras guardar
+  this.displayDialog = false;
+}
+
+// Prepara el formulario para edición copiando los datos del producto seleccionado
+editarProducto(producto: any) {
+  this.producto = { ...producto }; // Copia para evitar referencias directas
+  this.isEdit = true;
+  this.displayDialog = true; // Muestra el diálogo de edición
+}
+
+// Elimina un producto por su id y actualiza la lista, mostrando notificación
+async eliminarProducto(id: string) {
+  await this.productosService.eliminarProducto(id);
+  this.messageService.add({ severity: 'warn', summary: 'Eliminado', detail: 'Producto eliminado' });
+  this.getProductos(); // Refresca la lista tras eliminación
+}
+
+// Convierte un array de géneros (strings u objetos) a una cadena separada por comas
+getGenerosNames(generos: any[]): string {
+  if (!generos || generos.length === 0) {
+    return 'No especificado'; // Valor por defecto si no hay géneros
+  }
+
+  if (typeof generos[0] === 'string') {
+    return generos.join(', '); // Si ya son strings, unir con coma
+  }
+
+  if (generos[0]?.name) {
+    return generos.map(g => g.name).join(', '); // Si son objetos, extraer la propiedad 'name'
+  }
+
+  return 'No especificado'; // En caso contrario, retorna texto genérico
+}
+
+// Crea un objeto Producto con valores predeterminados para iniciar uno nuevo
 nuevoProducto(): Producto {
   return {
-    cantidad: 1,        // cantidad por defecto
-    valoracion: 0,      // valor inicial de la valoración
-    disponible: false   // se marca como no disponible al crear
+    cantidad: 1,        // cantidad inicial 1
+    valoracion: 0,      // valoración inicial 0
+    disponible: false   // marca como no disponible por defecto
   }
 }
+}
 
+/*
+
+// Método para subir imagen a Firebase Storage
 subirImagen(event: any) {
-  const archivo: File = event.files[0];
-  const storage = getStorage();
-  const nombreUnico = `imagenes/${Date.now()}_${archivo.name}`;
-  const storageRef = ref(storage, nombreUnico);
+  const archivo: File = event.files[0]; // Primer archivo seleccionado
+  const storage = getStorage(); // Referencia al Storage de Firebase
+  const nombreUnico = `imagenes/${Date.now()}_${archivo.name}`; // Nombre único para evitar conflictos
+  const storageRef = ref(storage, nombreUnico); // Referencia a la ruta de almacenamiento
 
+  // Subida del archivo
   uploadBytes(storageRef, archivo).then(() => {
+    // Obtiene la URL pública después de subir la imagen
     getDownloadURL(storageRef).then((url) => {
-      this.producto.imagen = url;
+      this.producto.imagen = url; // Asigna la URL al producto
       this.messageService.add({ severity: 'success', summary: 'Imagen subida', detail: 'La imagen se ha subido con éxito.' });
     });
   }).catch((error) => {
@@ -187,4 +194,4 @@ subirImagen(event: any) {
     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo subir la imagen.' });
   });
 }
-}
+}  */

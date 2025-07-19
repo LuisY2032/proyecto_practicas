@@ -1,9 +1,19 @@
+<!-- Título principal -->
 <h2>Órdenes por Usuario</h2>
 
+<!-- Recorre cada grupo de órdenes por email de usuario -->
 <div *ngFor="let grupo of ordenesPorUsuario" class="mb-4">
+  <!-- Muestra el correo electrónico del usuario -->
   <h3>{{ grupo.email }}</h3>
 
-  <p-table [value]="grupo.facturas" [rows]="3" [paginator]="true" [responsiveLayout]="'scroll'">
+  <!-- Tabla de facturas del usuario -->
+  <p-table
+    [value]="grupo.facturas"
+    [rows]="3"                     
+    [paginator]="true"            
+    [responsiveLayout]="'scroll'" 
+  >
+    <!-- Encabezado de la tabla -->
     <ng-template pTemplate="header">
       <tr>
         <th>ID</th>
@@ -13,12 +23,14 @@
       </tr>
     </ng-template>
 
+    <!-- Cuerpo de la tabla: una fila por factura -->
     <ng-template pTemplate="body" let-factura>
       <tr>
         <td>{{ factura.id }}</td>
         <td>{{ factura.fecha }}</td>
         <td>{{ factura.total | currency:'USD' }}</td>
         <td>
+          <!-- Botón para abrir el diálogo con los detalles -->
           <button
             pButton
             icon="pi pi-eye"
@@ -31,21 +43,23 @@
   </p-table>
 </div>
 
-<!-- Diálogo con detalles de la factura -->
+<!-- Diálogo modal con los detalles de la factura seleccionada -->
 <p-dialog
   header="Detalles de Factura"
-  [(visible)]="mostrarDialogo"
-  [modal]="true"
-  [style]="{ width: '400px' }"
-  [closable]="true"
+  [(visible)]="mostrarDialogo"   
+  [modal]="true"                 
+  [style]="{ width: '400px' }"   
+  [closable]="true"              
   (onHide)="facturaSeleccionada = null; usuarioSeleccionado = ''"
 >
+  <!-- Solo muestra si hay una factura seleccionada -->
   <ng-container *ngIf="facturaSeleccionada">
     <p><strong>Email:</strong> {{ usuarioSeleccionado }}</p>
     <p><strong>Factura ID:</strong> {{ facturaSeleccionada.id }}</p>
     <p><strong>Fecha:</strong> {{ facturaSeleccionada.fecha }}</p>
     <p><strong>Total:</strong> {{ facturaSeleccionada.total | currency:'USD' }}</p>
 
+    <!-- Lista de productos incluidos en la factura -->
     <strong>Productos:</strong>
     <ul>
       <li *ngFor="let p of facturaSeleccionada.productos">
@@ -55,7 +69,7 @@
   </ng-container>
 </p-dialog>
 
-<!-- Mensaje si no hay órdenes -->
+<!-- Si no hay órdenes, muestra este mensaje -->
 <div *ngIf="ordenesPorUsuario.length === 0" class="mt-3">
   <p>No hay órdenes registradas aún.</p>
 </div>

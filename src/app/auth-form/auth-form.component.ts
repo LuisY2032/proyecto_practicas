@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { FormsModule } from '@angular/forms'; 
 import {
@@ -25,11 +25,14 @@ import { PrimeIcons } from 'primeng/api';
   templateUrl: './auth-form.component.html', 
   styleUrls: ['./auth-form.component.scss'],
 })
+
 export class AuthFormComponent implements OnInit {
   auth = inject(Auth);
   firestore = inject(Firestore);
   router = inject(Router);
   messageService = inject(MessageService);
+  ngZone = inject(NgZone);  //  Inyectamos NgZone
+  loading = true;  
 
   email = '';
   password = '';
@@ -42,15 +45,18 @@ export class AuthFormComponent implements OnInit {
   selectedRol: string = '';
 
   ngOnInit() {
+    //  Envolvemos el callback de Firebase en NgZone para evitar errores de cambio de contexto
     onAuthStateChanged(this.auth, async (user) => {
-      this.user.set(user);
-      if (user) {
-        const rol = await this.obtenerRol(user.uid);
-        this.rol.set(rol);
-        
-      } else {
-        this.rol.set(null);
-      }
+      this.ngZone.run(async () => {
+        this.user.set(user);
+        this.loading = false;  // <-- Aquí indica que ya terminó la carga
+        if (user) {
+          const rol = await this.obtenerRol(user.uid);
+          this.rol.set(rol);
+        } else {
+          this.rol.set(null);
+        }
+      });
     });
   }
 
@@ -73,7 +79,6 @@ export class AuthFormComponent implements OnInit {
       if (this.isLogin) {
         const cred = await signInWithEmailAndPassword(this.auth, this.email, this.password);
         
-        // Obtener datos del usuario en Firestore
         const userDoc = await getDoc(doc(this.firestore, 'usuarios', cred.user.uid));
         const datos = userDoc.data();
 
@@ -87,7 +92,6 @@ export class AuthFormComponent implements OnInit {
           return;
         }
 
-        // Validar estado activo
         if (datos["estado"] === 'bloqueado') {
           this.messageService.add({
             severity: 'error',
@@ -98,7 +102,6 @@ export class AuthFormComponent implements OnInit {
           return;
         }
 
-        // Validar rol
         if (datos["rol"] !== this.selectedRol) {
           this.messageService.add({
             severity: 'error',
@@ -114,7 +117,21 @@ export class AuthFormComponent implements OnInit {
           summary: 'Bienvenido',
           detail: `Sesión iniciada como ${datos["rol"]}`,
         });
-        this.router.navigate(['/paginas/inicio']);
+
+       if (datos["rol"] === 'administrador') {
+  this.router.navigate(['/paginas/inicio']);  // ruta admin
+} else if (datos["rol"] === 'usuario') {
+  this.router.navigate(['/paginas/dashboard']);     // ruta usuario
+} else {
+  this.messageService.add({
+    severity: 'error',
+    summary: 'Rol no reconocido',
+    detail: 'Tu rol no está autorizado para ingresar.',
+  });
+  await this.auth.signOut();
+  return;
+}
+
       } else {
         const cred = await createUserWithEmailAndPassword(this.auth, this.email, this.password);
         await this.guardarRol(cred.user.uid, this.selectedRol);
@@ -123,9 +140,15 @@ export class AuthFormComponent implements OnInit {
           summary: 'Registrado',
           detail: `Cuenta creada con rol ${this.selectedRol}`,
         });
+        
+      // ✅ Redirección después del registro según el rol
+        if (this.selectedRol === 'administrador') {
+          this.router.navigate(['/paginas/inicio']);
+        } else if (this.selectedRol === 'usuario') {
+          this.router.navigate(['/paginas/dashboard']);
+        }
       }
 
-      this.router.navigate(['../paginas/inicio']);
     } catch (error: any) {
       this.messageService.add({
         severity: 'error',
@@ -138,7 +161,6 @@ export class AuthFormComponent implements OnInit {
   private async guardarRol(uid: string, rol: string) {
     const docRef = doc(this.firestore, 'usuarios', uid);
     await setDoc(docRef, { rol, email: this.email, estado: 'activo' }, { merge: true }); 
-    // Guardamos también estado 'activo' al crear usuario
   }
 
   private async obtenerRol(uid: string): Promise<string | null> {

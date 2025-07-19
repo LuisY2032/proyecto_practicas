@@ -30,6 +30,7 @@ export const roleGuard = (requiredRole: string): CanActivateFn => {
     const router = inject(Router);
 
     const user = auth.currentUser;
+    
     if (!user) {
       router.navigate(['/login']);
       return false;

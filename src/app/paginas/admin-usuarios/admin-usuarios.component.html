@@ -1,8 +1,12 @@
+<!-- Componente de notificaciones tipo toast para mostrar mensajes (éxito, error, etc.) -->
 <p-toast></p-toast>
 
+<!-- Título principal -->
 <h2 class="mb-3">Gestión de Usuarios</h2>
 
+<!-- Tabla de usuarios -->
 <p-table [value]="usuarios" dataKey="uid">
+  <!-- Encabezado de la tabla -->
   <ng-template pTemplate="header">
     <tr>
       <th>Email</th>
@@ -11,37 +15,57 @@
       <th>Acciones</th>
     </tr>
   </ng-template>
+
+  <!-- Cuerpo de la tabla, una fila por usuario -->
   <ng-template pTemplate="body" let-usuario>
-  <tr>
-    <td>{{ usuario.email }}</td>
-    <td>
-      <select [(ngModel)]="usuario.rol" (change)="actualizarRol(usuario)">
-        <option value="administrador">Administrador</option>
-        <option value="usuario">Usuario</option>
-      </select>
-    </td>
-    <td>{{ usuario.estado }}</td>
-    <td class="acciones-btns">
-  <button pButton label="Bloquear" icon="pi pi-lock"
+    <tr>
+      <!-- Muestra el email del usuario -->
+      <td>{{ usuario.email }}</td>
+
+      <!-- Selector de rol editable -->
+      <td>
+        <select [(ngModel)]="usuario.rol" (change)="actualizarRol(usuario)">
+          <option value="administrador">Administrador</option>
+          <option value="usuario">Usuario</option>
+        </select>
+      </td>
+
+      <!-- Estado actual del usuario (activo o bloqueado) -->
+      <td>{{ usuario.estado }}</td>
+
+      <!-- Botones de acciones (bloquear, activar, eliminar) -->
+      <td class="acciones-btns">
+
+        <!-- Botón para bloquear si el usuario está activo -->
+        <button
+          pButton
+          label="Bloquear"
+          icon="pi pi-lock"
           class="p-button-sm p-button-danger"
           (click)="cambiarEstado(usuario)"
           *ngIf="usuario.estado === 'activo'">
-  </button>
+        </button>
 
-  <button pButton label="Activar" icon="pi pi-unlock"
+        <!-- Botón para activar si el usuario está bloqueado -->
+        <button
+          pButton
+          label="Activar"
+          icon="pi pi-unlock"
           class="p-button-sm p-button-success"
           (click)="cambiarEstado(usuario)"
           *ngIf="usuario.estado === 'bloqueado'">
-  </button>
+        </button>
 
-  <button pButton label="Eliminar" icon="pi pi-trash"
+        <!-- Botón para eliminar usuario -->
+        <button
+          pButton
+          label="Eliminar"
+          icon="pi pi-trash"
           class="p-button-sm p-button-danger"
           (click)="eliminarUsuario(usuario.uid)">
-  </button>
-</td>
+        </button>
 
-  </tr>
-</ng-template>
-
+      </td>
+    </tr>
+  </ng-template>
 </p-table>
-

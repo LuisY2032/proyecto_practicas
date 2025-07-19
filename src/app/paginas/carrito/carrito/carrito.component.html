@@ -1,46 +1,75 @@
+<!-- Componente para mostrar mensajes tipo toast -->
 <p-toast></p-toast>
 
+<!-- Título principal -->
 <h2>Carrito de Compras</h2>
 
+<!-- Mensaje si el carrito está vacío -->
 <div *ngIf="productos.length === 0">
   <p>Tu carrito está vacío.</p>
 </div>
 
+<!-- Contenedor con los productos en el carrito, se muestra solo si hay productos -->
 <div class="carrito-grid" *ngIf="productos.length > 0">
+  <!-- Recorremos cada producto en el carrito -->
   <div *ngFor="let producto of productos" class="producto">
+    <!-- Tarjeta para cada producto -->
     <p-card
-      [header]="producto.titulo"
-      [subheader]="'Cantidad: ' + (producto.cantidad || 1)"
+      [header]="producto.titulo"                    
+      [subheader]="'Cantidad: ' + (producto.cantidad || 1)"  
       class="carrito-card"
     >
+      <!-- Imagen del producto, solo si existe -->
       <img
         *ngIf="producto.imagen"
-        [src]="getRutaImagen(producto.imagen)"
+        [src]="getRutaImagen(producto.imagen)"      
         alt="Imagen"
         class="producto-img"
       />
+      
+      <!-- Descripción del producto, si existe -->
       <p *ngIf="producto.descripcion">{{ producto.descripcion }}</p>
+      
+      <!-- Precio del producto -->
       <p><strong>Precio: </strong>${{ producto.precio }}</p>
+      
+      <!-- Botón para eliminar el producto del carrito -->
       <button
         pButton
         type="button"
         icon="pi pi-trash"
         label="Eliminar"
-        (click)="eliminar(producto.id)"
+        (click)="eliminar(producto.id)"             
         class="p-button-danger"
       ></button>
     </p-card>
   </div>
 </div>
 
+<!-- Muestra el total a pagar solo si hay productos -->
 <div *ngIf="productos.length > 0" class="total" style="margin-top: 1rem;">
-  <h3>Total a pagar: ${{ total | number: '1.2-2' }}</h3>
+  <h3>Total a pagar: ${{ total | number: '1.2-2' }}</h3>   <!-- Total formateado con 2 decimales -->
 </div>
 
+<!-- Botones para realizar la compra o vaciar el carrito -->
 <div class="acciones" style="margin-top: 1rem;">
-    <button pButton label="Realizar compra" icon="pi pi-check" class="p-button-success" (click)="comprar()"></button>
-    <button pButton label="Vaciar carrito" icon="pi pi-trash" class="p-button-warning" (click)="vaciarCarrito()"></button>
-</div><br>
+  <button 
+    pButton 
+    label="Realizar compra" 
+    icon="pi pi-check" 
+    class="p-button-success" 
+    (click)="comprar()">        <!-- Llama función comprar -->
+  </button>
+  
+  <button 
+    pButton 
+    label="Vaciar carrito" 
+    icon="pi pi-trash" 
+    class="p-button-warning" 
+    (click)="vaciarCarrito()">   <!-- Llama función vaciarCarrito -->
+  </button>
+</div>
+<br>
 
 
 

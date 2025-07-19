@@ -1,35 +1,44 @@
+<!-- Componente para mostrar mensajes tipo toast -->
 <p-toast></p-toast>
+
+<!-- Título principal del catálogo -->
 <h2>Catálogo de Productos</h2>
 
+<!-- Contenedor con estilo grid para mostrar productos -->
 <div class="productos-grid">
+  <!-- Recorremos los productos que están en la página actual -->
   <p-card
     *ngFor="let producto of productosPaginados"
-    [header]="producto.titulo"
-    [subheader]="'$' + producto.precio"
-    styleClass="producto-card"
+    [header]="producto.titulo"               
+    [subheader]="'$' + producto.precio"      
+    styleClass="producto-card"                
   >
+    <!-- Imagen del producto, si existe -->
     <img
       *ngIf="producto.imagen"
-      [src]="getRutaImagen(producto.imagen)"
-      alt="{{ producto.titulo }}"
-      class="producto-imagen"
+      [src]="getRutaImagen(producto.imagen)"  
+      alt="{{ producto.titulo }}"              
+      class="producto-imagen"                  
     />
+    <!-- Descripción del producto -->
     <p>{{ producto.descripcion }}</p>
 
+    <!-- Botón para agregar el producto al carrito -->
     <button
       pButton
       type="button"
       label="Agregar al carrito"
       icon="pi pi-shopping-cart"
-      (click)="agregarAlCarrito(producto)"
+      (click)="agregarAlCarrito(producto)"    
     ></button>
   </p-card>
 </div>
 
+<!-- Paginador de PrimeNG para controlar la paginación -->
 <p-paginator
-  [rows]="4"
-  [totalRecords]="productos.length"
-  (onPageChange)="cambiarPagina($event)">
+  [rows]="4"                        
+  [totalRecords]="productos.length" 
+  (onPageChange)="cambiarPagina($event)">  
 </p-paginator>
 
 

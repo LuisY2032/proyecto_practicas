@@ -22,7 +22,7 @@ export default [
         component: InicioComponent,
         title: 'Inicio',
         canActivate: [roleGuard('administrador')]
-        // Todos pueden acceder (admin y usuario)
+        // Todos pueden acceder (admin )
       },
       {
         path: 'admin-usuarios',
@@ -58,21 +58,25 @@ export default [
         path: 'dashboard',
         component: DashboardComponent,
         title: 'Dashboard',
+        canActivate: [roleGuard('usuario')]
       },
       {
         path: 'catalogo',
         component: CatalogoComponent,
         title: 'Catalogo',
+        canActivate: [roleGuard('usuario')]
       },
       {
         path: 'carrito',
         component: CarritoComponent,
-        title: 'Carrito de Compras'
+        title: 'Carrito de Compras',
+        canActivate: [roleGuard('usuario')]
       },
       {
         path: 'factura',
         component: FacturaComponent,
         title: 'Factura',
+        canActivate: [roleGuard('usuario')]
       },
       {
         path: '',

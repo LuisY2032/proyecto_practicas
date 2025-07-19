@@ -1,65 +1,53 @@
-<p-toast></p-toast>
+<!-- Mostrar contenido cuando carga termina -->
+<div *ngIf="!loading">
+  <!-- Formulario si NO hay usuario -->
+  <div *ngIf="!user()" class="auth-container">
+    <form class="auth-form fade-in" (ngSubmit)="onSubmit()">
+      <img src="images/game-store.png" alt="Logo de New Clothes" class="auth-logo" />
+      <h2>{{ isLogin ? 'Iniciar sesión' : 'Registrarse' }}</h2>
 
-<!-- Formulario -->
-<div class="auth-container" *ngIf="!user()"> <!-- "; else loggedIn" va a lado del ();esto de aqui es para que aparezca como un aviso-->
-  <form class="auth-form fade-in" (ngSubmit)="onSubmit()">
-    <img src="images/game-store.png" alt="Logo de New Clothes" class="auth-logo" />
-    <h2>{{ isLogin ? 'Iniciar sesión' : 'Registrarse' }}</h2>
+      <!-- Email -->
+      <input
+        [(ngModel)]="email"
+        name="email"
+        type="email"
+        placeholder="Correo electrónico"
+        required
+      />
 
-    <!-- Email -->
-    <input
-      [(ngModel)]="email"
-      name="email"
-      type="email"
-      placeholder="Correo electrónico"
-      required
-    />
+      <!-- Contraseña -->
+      <input
+        [(ngModel)]="password"
+        name="password"
+        type="password"
+        placeholder="Contraseña"
+        required
+      />
 
-    <!-- Contraseña -->
-    <input
-      [(ngModel)]="password"
-      name="password"
-      type="password"
-      placeholder="Contraseña"
-      required
-    />
+      <!-- Selector de rol -->
+      <div class="mb-3">
+        <label for="rol">Selecciona tu rol:</label>
+        <select id="rol" [(ngModel)]="selectedRol" name="rol" required>
+          <option value="">-- Selecciona un rol --</option>
+          <option *ngFor="let rol of userRoles" [value]="rol">{{ rol }}</option>
+        </select>
+      </div>
 
-    <!-- Selector de rol -->
-    <div class="mb-3">
-      <label for="rol">Selecciona tu rol:</label>
-      <select id="rol" [(ngModel)]="selectedRol" name="rol" required>
-        <option value="">-- Selecciona un rol --</option>
-        <option *ngFor="let rol of userRoles" [value]="rol">{{ rol }}</option>
-      </select>
-    </div>
-    <br>
-    <br>
-    <!-- Botones -->
-    <button type="submit">
-      {{ isLogin ? 'Iniciar sesión' : 'Registrarse' }}
-    </button>
+      <br /><br />
 
-    <button type="button" class="toggle" (click)="toggleMode()">
-      {{ isLogin ? '¿No tienes cuenta? Regístrate' : '¿Ya tienes cuenta? Inicia sesión' }}
-    </button>
-  </form>
+      <!-- Botones -->
+      <button type="submit">
+        {{ isLogin ? 'Iniciar sesión' : 'Registrarse' }}
+      </button>
+
+      <button type="button" class="toggle" (click)="toggleMode()">
+        {{ isLogin ? '¿No tienes cuenta? Regístrate' : '¿Ya tienes cuenta? Inicia sesión' }}
+      </button>
+    </form>
+  </div>
 </div>
 
 
-
-<!--    <ng-template #loggedIn>
-  <div class="center-container">
-    <p-card class="welcome-card" header="Bienvenido 🎮">
-      <ng-template pTemplate="title">
-        <i class="pi pi-user text-primary" style="font-size: 3rem;"></i>
-      </ng-template>
-      <p class="welcome-text">
-        Estás autenticado correctamente.<br>
-        Serás redirigido en un momento...
-      </p>
-    </p-card>
-  </div>
-</ng-template>   -->
 
 
 

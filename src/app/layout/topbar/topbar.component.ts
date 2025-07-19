@@ -33,7 +33,7 @@ export class TopbarComponent implements OnInit {
           const rolUsuario = docSnap.data()['rol'];
           this.rol.set(rolUsuario);
 
-          // 🧩 Menú según rol
+          //  Menú según rol
           if (rolUsuario === 'administrador') {
             this.items = [
               { label: 'Inicio', icon: 'pi pi-home', routerLink: '/paginas/inicio' },
@@ -45,8 +45,8 @@ export class TopbarComponent implements OnInit {
             ];
           } else if (rolUsuario === 'usuario') {
             this.items = [
-              { label: 'Inicio', icon: 'pi pi-home', routerLink: '/paginas/inicio' },
-              { label: 'Catálogo', icon: 'pi pi-th-large', routerLink: '/paginas/catalogo' },
+              { label: 'Dashboard', icon: 'pi pi-home', routerLink: '/paginas/dashboard' },
+              { label: 'Catálogo', icon: 'pi pi-book', routerLink: '/paginas/catalogo' },
               { label: 'Carrito', icon: 'pi pi-shopping-cart', routerLink: '/paginas/carrito' },
               { label: 'Factura', icon: 'pi pi-file', routerLink: '/paginas/factura' },
             ];

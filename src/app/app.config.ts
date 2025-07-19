@@ -38,10 +38,19 @@ export const appConfig: ApplicationConfig = {
       }
     }),
 
-    provideHttpClient(),
-    provideFirebaseApp(() => initializeApp(firebaseConfig)),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
+provideHttpClient(), 
+// Provee el cliente HTTP para hacer peticiones HTTP en Angular (HttpClientModule).
 
-  ]
-};
+provideFirebaseApp(() => initializeApp(firebaseConfig)), 
+// Inicializa la aplicación Firebase usando la configuración firebaseConfig.
+// Esto conecta tu app Angular con tu proyecto Firebase.
+
+provideAuth(() => getAuth()), 
+// Provee el servicio de autenticación de Firebase para manejar login, registro, etc.
+
+provideFirestore(() => getFirestore()), 
+// Provee el servicio Firestore para manejar la base de datos NoSQL en tiempo real.
+
+
+]
+}
